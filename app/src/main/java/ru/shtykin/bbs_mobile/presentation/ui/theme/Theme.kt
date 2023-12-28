@@ -1,4 +1,4 @@
-package ru.shtykin.bbs_mobile.ui.theme
+package ru.shtykin.bbs_mobile.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
