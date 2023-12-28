@@ -11,7 +11,7 @@ interface ApiService {
     fun getCameras (
     ): Call<ResponseCamerasDto>
 
-    @GET("/api/rubetek/cameras/")
+    @GET("/api/rubetek/doors/")
     fun getDoors (
     ): Call<ResponseDoorsDto>
 }

@@ -10,11 +10,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.shtykin.bbs_mobile.data.mapper.Mapper
 import ru.shtykin.bbs_mobile.data.network.ApiService
 import ru.shtykin.bbs_mobile.data.repository.RepositoryImpl
 import ru.shtykin.bbs_mobile.domain.Repository
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -23,8 +23,8 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideRepository(apiService: ApiService): Repository {
-        return RepositoryImpl(apiService)
+    fun provideRepository(apiService: ApiService, mapper: Mapper): Repository {
+        return RepositoryImpl(apiService, mapper)
     }
 
     @Provides
@@ -57,6 +57,11 @@ class DataModule {
     @Singleton
     fun provideGson(): Gson {
         return GsonBuilder().setLenient().create()
+    }
+
+    @Provides
+    fun provideMapper(): Mapper {
+        return Mapper()
     }
 
 }

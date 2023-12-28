@@ -4,5 +4,5 @@ import ru.shtykin.bbs_mobile.domain.Repository
 
 class GetDoorsUseCase (private val repository: Repository) {
     suspend fun execute() =
-        repository.getCameras()
+        repository.getDoors()
 }

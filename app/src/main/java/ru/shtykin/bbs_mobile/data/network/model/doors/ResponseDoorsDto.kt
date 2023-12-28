@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseDoorsDto(
     @SerializedName("success") val success: Boolean,
-    @SerializedName("data") val data: ResponseDoorsDataDto,
+    @SerializedName("data") val data: List<ResponseDoorsDataDto>,
 )

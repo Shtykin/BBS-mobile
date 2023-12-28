@@ -1,5 +1,6 @@
 package ru.shtykin.bbs_mobile.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -31,13 +32,23 @@ class MainViewModel @Inject constructor(
 
     fun getCameras() {
         viewModelScope.launch(Dispatchers.IO) {
-            getCamerasUseCase.execute()
+            try {
+                val cameras = getCamerasUseCase.execute()
+                Log.e("DEBUG1", "cameras -> $cameras")
+            } catch (e: Exception) {
+                Log.e("DEBUG1", "exception -> ${e.message}")
+            }
         }
     }
 
     fun getDoors() {
         viewModelScope.launch(Dispatchers.IO) {
-            getCamerasUseCase.execute()
+            try {
+                val doors = getDoorsUseCase.execute()
+                Log.e("DEBUG1", "doors -> $doors")
+            } catch (e: Exception) {
+                Log.e("DEBUG1", "exception -> ${e.message}")
+            }
         }
     }
 
