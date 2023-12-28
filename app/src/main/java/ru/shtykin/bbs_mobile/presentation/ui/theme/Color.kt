@@ -1,4 +1,4 @@
-package ru.shtykin.bbs_mobile.ui.theme
+package ru.shtykin.bbs_mobile.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
