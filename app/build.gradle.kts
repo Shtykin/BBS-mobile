@@ -89,6 +89,9 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.22"))
+
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 }
 
 kapt {
