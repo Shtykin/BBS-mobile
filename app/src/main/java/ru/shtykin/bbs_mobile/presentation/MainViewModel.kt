@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.shtykin.bbs_mobile.domain.usecase.GetCamerasUseCase
 import ru.shtykin.bbs_mobile.domain.usecase.GetDoorsUseCase
 import ru.shtykin.bbs_mobile.presentation.state.ScreenState
@@ -23,7 +24,8 @@ class MainViewModel @Inject constructor(
     private val _uiState =
         mutableStateOf<ScreenState>(
             ScreenState.CamerasScreen(
-                cameras = emptyList()
+                cameras = emptyList(),
+                refreshing = false
             )
         )
 
@@ -31,11 +33,20 @@ class MainViewModel @Inject constructor(
         get() = _uiState
 
     fun getCameras() {
+        _uiState.value = ScreenState.CamerasScreen(
+            cameras = emptyList(),
+            refreshing = true
+        )
         viewModelScope.launch(Dispatchers.IO) {
+
             try {
                 val cameras = getCamerasUseCase.execute()
-                Log.e("DEBUG1", "cameras -> $cameras")
-                _uiState.value = ScreenState.CamerasScreen(cameras = cameras)
+                withContext(Dispatchers.Main) {
+                    _uiState.value = ScreenState.CamerasScreen(
+                        cameras = cameras,
+                        refreshing = false
+                    )
+                }
             } catch (e: Exception) {
                 Log.e("DEBUG1", "exception -> ${e.message}")
             }
@@ -43,10 +54,19 @@ class MainViewModel @Inject constructor(
     }
 
     fun getDoors() {
+        _uiState.value = ScreenState.DoorsScreen(
+            doors = emptyList(),
+            refreshing = true
+        )
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val doors = getDoorsUseCase.execute()
-                Log.e("DEBUG1", "doors -> $doors")
+                withContext(Dispatchers.Main) {
+                    _uiState.value = ScreenState.DoorsScreen(
+                        doors = doors,
+                        refreshing = false
+                    )
+                }
             } catch (e: Exception) {
                 Log.e("DEBUG1", "exception -> ${e.message}")
             }

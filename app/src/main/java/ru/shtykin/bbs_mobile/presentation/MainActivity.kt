@@ -1,6 +1,7 @@
 package ru.shtykin.bbs_mobile.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -71,11 +72,16 @@ class MainActivity : ComponentActivity() {
                             camerasScreenContent = {
                                 CamerasScreen(
                                     uiState = uiState,
+                                    onFavoriteClick = {},
+                                    onSwipeRefresh = { viewModel.getCameras()}
                                 )
                             },
                             doorsScreenContent = {
                                 DoorsScreen(
                                     uiState = uiState,
+                                    onFavoriteClick = {},
+                                    onEditClick = {},
+                                    onSwipeRefresh = { viewModel.getDoors()}
                                 )
                             },
                         )
