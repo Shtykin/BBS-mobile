@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(
     private val _uiState =
         mutableStateOf<ScreenState>(
             ScreenState.CamerasScreen(
-                temp = "temp"
+                cameras = emptyList()
             )
         )
 
@@ -35,6 +35,7 @@ class MainViewModel @Inject constructor(
             try {
                 val cameras = getCamerasUseCase.execute()
                 Log.e("DEBUG1", "cameras -> $cameras")
+                _uiState.value = ScreenState.CamerasScreen(cameras = cameras)
             } catch (e: Exception) {
                 Log.e("DEBUG1", "exception -> ${e.message}")
             }
