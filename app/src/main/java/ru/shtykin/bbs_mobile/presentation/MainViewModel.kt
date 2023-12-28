@@ -9,8 +9,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.shtykin.bbs_mobile.domain.usecase.GetCamerasFromDbUseCase
 import ru.shtykin.bbs_mobile.domain.usecase.GetCamerasUseCase
 import ru.shtykin.bbs_mobile.domain.usecase.GetDoorsUseCase
+import ru.shtykin.bbs_mobile.domain.usecase.UpdateAllCamerasToDbUseCase
 import ru.shtykin.bbs_mobile.presentation.state.ScreenState
 import javax.inject.Inject
 
@@ -18,7 +20,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getCamerasUseCase: GetCamerasUseCase,
-    private val getDoorsUseCase: GetDoorsUseCase
+    private val getDoorsUseCase: GetDoorsUseCase,
+    private val updateAllCamerasToDbUseCase: UpdateAllCamerasToDbUseCase,
+    private val getCamerasFromDbUseCase: GetCamerasFromDbUseCase
 ) : ViewModel() {
 
     private val _uiState =
@@ -47,6 +51,10 @@ class MainViewModel @Inject constructor(
                         refreshing = false
                     )
                 }
+
+                updateAllCamerasToDbUseCase.execute(cameras)
+                val result = getCamerasFromDbUseCase.execute()
+                Log.e("DEBUG1", "result -> ${result}")
             } catch (e: Exception) {
                 Log.e("DEBUG1", "exception -> ${e.message}")
             }

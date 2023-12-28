@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("io.realm.kotlin")
 }
 
 android {
@@ -93,6 +94,11 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     implementation("io.github.kevinnzou:compose-swipebox:1.2.0")
+
+    //realm
+    implementation("io.realm.kotlin:library-base:1.11.0")
+    implementation("io.realm.kotlin:library-sync:1.11.0")// If using Device Sync
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1") // If using coroutines with the SDK
 
 }
 

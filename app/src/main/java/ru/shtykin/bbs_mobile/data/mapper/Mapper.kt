@@ -1,5 +1,6 @@
 package ru.shtykin.bbs_mobile.data.mapper
 
+import ru.shtykin.bbs_mobile.data.db.model.CameraDbModel
 import ru.shtykin.bbs_mobile.data.network.model.cameras.ResponseCamerasDto
 import ru.shtykin.bbs_mobile.data.network.model.doors.ResponseDoorsDto
 import ru.shtykin.bbs_mobile.domain.entity.Camera
@@ -29,5 +30,25 @@ class Mapper {
                 favorites = it.favorites,
             )
         }
+
+    fun mapCameraToCameraDbModel(camera: Camera): CameraDbModel =
+        CameraDbModel().apply {
+            camera_id = camera.id
+            name = camera.name
+            room = camera.room ?: ""
+            snapshot = camera.snapshot
+            favorites = camera.favorites
+            rec = camera.rec
+        }
+
+    fun mapCameraDbModelToCamera(cameraDbModel: CameraDbModel): Camera =
+        Camera(
+            id = cameraDbModel.camera_id,
+            name = cameraDbModel.name,
+            room = cameraDbModel.room,
+            snapshot = cameraDbModel.snapshot,
+            favorites = cameraDbModel.favorites,
+            rec = cameraDbModel.rec
+        )
 
 }

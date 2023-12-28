@@ -6,10 +6,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.realm.kotlin.Configuration
+import io.realm.kotlin.Realm
+import io.realm.kotlin.RealmConfiguration
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.shtykin.bbs_mobile.data.db.model.CameraDbModel
+import ru.shtykin.bbs_mobile.data.db.model.DoorDbModel
 import ru.shtykin.bbs_mobile.data.mapper.Mapper
 import ru.shtykin.bbs_mobile.data.network.ApiService
 import ru.shtykin.bbs_mobile.data.repository.RepositoryImpl
@@ -23,8 +28,8 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideRepository(apiService: ApiService, mapper: Mapper): Repository {
-        return RepositoryImpl(apiService, mapper)
+    fun provideRepository(apiService: ApiService, mapper: Mapper, realm: Realm): Repository {
+        return RepositoryImpl(apiService, mapper, realm)
     }
 
     @Provides
@@ -63,5 +68,14 @@ class DataModule {
     fun provideMapper(): Mapper {
         return Mapper()
     }
+
+    @Provides
+    @Singleton
+    fun provideDB(): Realm {
+        val configRealm = RealmConfiguration.create(schema = setOf(CameraDbModel::class, DoorDbModel::class))
+        return Realm.open(configRealm)
+    }
+
+
 
 }

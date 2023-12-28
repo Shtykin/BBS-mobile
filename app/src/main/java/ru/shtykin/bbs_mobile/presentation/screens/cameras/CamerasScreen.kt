@@ -2,8 +2,6 @@ package ru.shtykin.bbs_mobile.presentation.screens.cameras
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
@@ -41,7 +38,6 @@ import ru.shtykin.bbs_mobile.domain.entity.Camera
 import ru.shtykin.bbs_mobile.presentation.common.RoundIconButton
 import ru.shtykin.bbs_mobile.presentation.state.ScreenState
 import ru.shtykin.bbs_mobile.presentation.ui.theme.Gold1
-import ru.shtykin.bbs_mobile.presentation.ui.theme.LightGray1
 
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterialApi::class)
