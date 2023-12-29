@@ -1,6 +1,7 @@
 package ru.shtykin.bbs_mobile.data.mapper
 
 import ru.shtykin.bbs_mobile.data.db.model.CameraDbModel
+import ru.shtykin.bbs_mobile.data.db.model.DoorDbModel
 import ru.shtykin.bbs_mobile.data.network.model.cameras.ResponseCamerasDto
 import ru.shtykin.bbs_mobile.data.network.model.doors.ResponseDoorsDto
 import ru.shtykin.bbs_mobile.domain.entity.Camera
@@ -31,7 +32,7 @@ class Mapper {
             )
         }
 
-    fun mapCameraToCameraDbModel(camera: Camera): CameraDbModel =
+    fun mapCameraToCameraDbModel(camera: Camera) =
         CameraDbModel().apply {
             camera_id = camera.id
             name = camera.name
@@ -41,7 +42,7 @@ class Mapper {
             rec = camera.rec
         }
 
-    fun mapCameraDbModelToCamera(cameraDbModel: CameraDbModel): Camera =
+    fun mapCameraDbModelToCamera(cameraDbModel: CameraDbModel) =
         Camera(
             id = cameraDbModel.camera_id,
             name = cameraDbModel.name,
@@ -49,6 +50,23 @@ class Mapper {
             snapshot = cameraDbModel.snapshot,
             favorites = cameraDbModel.favorites,
             rec = cameraDbModel.rec
+        )
+
+    fun mapDoorToDoorDbModel(door: Door) =
+        DoorDbModel().apply {
+            door_id = door.id
+            name = door.name
+            room = door.room ?: ""
+            snapshot = door.snapshot ?: ""
+            favorites = door.favorites
+        }
+    fun mapDoorDbModelToDoor(doorDbModel: DoorDbModel) =
+        Door(
+            id = doorDbModel.door_id,
+            name = doorDbModel.name,
+            room = doorDbModel.room,
+            snapshot = doorDbModel.snapshot.ifEmpty { null },
+            favorites = doorDbModel.favorites
         )
 
 }

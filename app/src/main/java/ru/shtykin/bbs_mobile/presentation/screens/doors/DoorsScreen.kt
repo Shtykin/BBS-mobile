@@ -1,5 +1,6 @@
 package ru.shtykin.bbs_mobile.presentation.screens.doors
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -50,13 +51,23 @@ fun DoorsScreen(
     onSwipeRefresh: (() -> Unit)?,
 ) {
     val doors = (uiState as? ScreenState.DoorsScreen)?.doors ?: emptyList()
-
     val refreshing = (uiState as? ScreenState.DoorsScreen)?.refreshing ?: false
+    val error = (uiState as? ScreenState.DoorsScreen)?.error
 
     val pullRefreshState = rememberPullRefreshState(refreshing, { onSwipeRefresh?.invoke() })
 
     Box(Modifier.pullRefresh(pullRefreshState)) {
         LazyColumn(Modifier.fillMaxSize()) {
+            if (error != null) {
+                item {
+                    Text(
+                        text = "Oops... Something wrong...\n$error",
+                        modifier = Modifier.padding(16.dp),
+                        fontSize = 14.sp,
+                        color = DarkCyan1
+                    )
+                }
+            }
             items(doors) {
                 SwipeDoorBox(
                     door = it,
@@ -84,7 +95,7 @@ fun DoorCard(
             defaultElevation = 8.dp
         )
     ) {
-        if (door.snapshot != null) {
+        if (!door.snapshot.isNullOrEmpty()) {
             Box() {
                 Image(
                     modifier = Modifier

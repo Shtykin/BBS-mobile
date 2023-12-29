@@ -10,4 +10,8 @@ interface Repository {
     suspend fun getCamerasFromDb() : List<Camera>
     suspend fun deleteAllCamerasFromDb()
     suspend fun saveCamerasToDb(cameras: List<Camera>)
+    suspend fun updateCamerasInDbWithId(camera: Camera)
+    suspend fun getDoorsFromDb() : List<Door>
+    suspend fun deleteAllDoorsFromDb()
+    suspend fun saveDoorsToDb(doors: List<Door>)
 }

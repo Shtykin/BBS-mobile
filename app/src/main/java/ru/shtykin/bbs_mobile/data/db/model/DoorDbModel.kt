@@ -8,7 +8,7 @@ class DoorDbModel(): RealmObject {
 
     @PrimaryKey
     var _id: ObjectId = ObjectId()
-    var camera_id: Int = -1
+    var door_id: Int = -1
     var name: String = ""
     var room: String = ""
     var snapshot: String = ""
