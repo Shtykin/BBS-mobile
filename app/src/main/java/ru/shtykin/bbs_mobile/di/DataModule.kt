@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.realm.kotlin.Configuration
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 import okhttp3.OkHttpClient

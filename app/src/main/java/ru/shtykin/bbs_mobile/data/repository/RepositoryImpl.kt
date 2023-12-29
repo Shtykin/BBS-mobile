@@ -1,9 +1,7 @@
 package ru.shtykin.bbs_mobile.data.repository
 
-import android.util.Log
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
-import okhttp3.internal.wait
 import ru.shtykin.bbs_mobile.data.db.model.CameraDbModel
 import ru.shtykin.bbs_mobile.data.db.model.DoorDbModel
 import ru.shtykin.bbs_mobile.data.mapper.Mapper
@@ -61,7 +59,6 @@ class RepositoryImpl(
     }
 
     override suspend fun updateCamerasInDbWithId(camera: Camera) {
-        Log.e("DEBUG1", "cam -> $camera")
         realm.write {
             val liveCamera = query<CameraDbModel>("camera_id == ${camera.id}").find().first()
             liveCamera.name = camera.name
