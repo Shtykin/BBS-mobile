@@ -1,6 +1,5 @@
 package ru.shtykin.bbs_mobile.presentation
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -66,7 +65,6 @@ class MainViewModel @Inject constructor(
                 }
                 updateAllCamerasToDbUseCase.execute(camerasFromNetwork)
             } catch (e: Exception) {
-                Log.e("DEBUG1", "exception -> ${e.message}")
                 withContext(Dispatchers.Main) {
                     _uiState.value = ScreenState.CamerasScreen(
                         cameras = getCamerasFromDb(),
@@ -109,7 +107,6 @@ class MainViewModel @Inject constructor(
                     updateAllCamerasToDbUseCase.execute(camerasFromNetwork)
                 }
             } catch (e: Exception) {
-                Log.e("DEBUG1", "exception -> ${e.message}")
                 withContext(Dispatchers.Main) {
                     _uiState.value = ScreenState.CamerasScreen(
                         cameras = getCamerasFromDb(),
@@ -133,7 +130,6 @@ class MainViewModel @Inject constructor(
                     )
                 }
             } catch (e: Exception) {
-                Log.e("DEBUG1", "exception -> ${e.message}")
                 withContext(Dispatchers.Main) {
                     _uiState.value = ScreenState.CamerasScreen(
                         cameras = emptyList(),
@@ -163,7 +159,6 @@ class MainViewModel @Inject constructor(
                 }
                 updateAllDoorsToDbUseCase.execute(doorsFromNetwork)
             } catch (e: Exception) {
-                Log.e("DEBUG1", "exception -> ${e.message}")
                 withContext(Dispatchers.Main) {
                     _uiState.value = ScreenState.DoorsScreen(
                         doors = getDoorsFromDb(),
@@ -206,7 +201,6 @@ class MainViewModel @Inject constructor(
                     updateAllDoorsToDbUseCase.execute(doorsFromNetwork)
                 }
             } catch (e: Exception) {
-                Log.e("DEBUG1", "exception -> ${e.message}")
                 withContext(Dispatchers.Main) {
                     _uiState.value = ScreenState.DoorsScreen(
                         doors = getDoorsFromDb(),

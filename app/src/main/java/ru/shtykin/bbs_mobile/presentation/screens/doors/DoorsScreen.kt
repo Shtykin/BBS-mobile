@@ -1,6 +1,5 @@
 package ru.shtykin.bbs_mobile.presentation.screens.doors
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
