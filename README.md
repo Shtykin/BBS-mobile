@@ -1,4 +1,4 @@
-# <img src="https://github.com/Shtykin/BBS-mobile/blob/main/app/src/main/res/drawable/bbs_logo.png" alt="drawing" width="50"/> The Bb-system
+# <img src="https://github.com/Shtykin/BBS-mobile/blob/main/app/src/main/res/drawable/bbs_logo.png" alt="drawing" width="50"/> The Bb System
 
 ___
 ### **Назначение:** Приложение для отображения камер и дверей (тестовое задание).
