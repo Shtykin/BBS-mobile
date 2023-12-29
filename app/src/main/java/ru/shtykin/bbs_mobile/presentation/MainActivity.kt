@@ -52,15 +52,19 @@ class MainActivity : ComponentActivity() {
                             onItemClick = {
                                 when (it) {
                                     is MenuItem.Cameras -> {
-                                        viewModel.getCameras()
-                                        navHostController.navigate(Screen.Cameras.route) {
-                                            popUpTo(Screen.Cameras.route) { inclusive = true }
+                                        if (navHostController.currentDestination?.route != Screen.Cameras.route) {
+                                            viewModel.getCameras()
+                                            navHostController.navigate(Screen.Cameras.route){
+                                                popUpTo(0)
+                                            }
                                         }
                                     }
                                     is MenuItem.Doors -> {
-                                        viewModel.getDoors()
-                                        navHostController.navigate(Screen.Doors.route) {
-                                            popUpTo(Screen.Doors.route) { inclusive = true }
+                                        if (navHostController.currentDestination?.route != Screen.Doors.route) {
+                                            viewModel.getDoors()
+                                            navHostController.navigate(Screen.Doors.route) {
+                                                popUpTo(0)
+                                            }
                                         }
                                     }
                                 }
@@ -72,8 +76,8 @@ class MainActivity : ComponentActivity() {
                             camerasScreenContent = {
                                 CamerasScreen(
                                     uiState = uiState,
-                                    onFavoriteClick = {},
-                                    onSwipeRefresh = { viewModel.getCameras()}
+                                    onFavoriteClick = {viewModel.toggleFavoriteCamera(it)},
+                                    onSwipeRefresh = { viewModel.getCamerasIntend()}
                                 )
                             },
                             doorsScreenContent = {
@@ -81,7 +85,7 @@ class MainActivity : ComponentActivity() {
                                     uiState = uiState,
                                     onFavoriteClick = {},
                                     onEditClick = {},
-                                    onSwipeRefresh = { viewModel.getDoors()}
+                                    onSwipeRefresh = { viewModel.getDoorsIntend()}
                                 )
                             },
                         )

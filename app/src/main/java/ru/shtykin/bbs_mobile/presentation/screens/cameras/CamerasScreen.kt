@@ -1,9 +1,9 @@
 package ru.shtykin.bbs_mobile.presentation.screens.cameras
 
 import android.annotation.SuppressLint
+import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
@@ -29,8 +28,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,8 +41,8 @@ import com.kevinnzou.compose.swipebox.SwipeDirection
 import ru.shtykin.bbs_mobile.domain.entity.Camera
 import ru.shtykin.bbs_mobile.presentation.common.RoundIconButton
 import ru.shtykin.bbs_mobile.presentation.state.ScreenState
+import ru.shtykin.bbs_mobile.presentation.ui.theme.DarkCyan1
 import ru.shtykin.bbs_mobile.presentation.ui.theme.Gold1
-import ru.shtykin.bbs_mobile.presentation.ui.theme.LightGray1
 
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterialApi::class)
@@ -53,21 +54,34 @@ fun CamerasScreen(
 ) {
     val cameras = (uiState as? ScreenState.CamerasScreen)?.cameras ?: emptyList()
     val refreshing = (uiState as? ScreenState.CamerasScreen)?.refreshing ?: false
+    val error = (uiState as? ScreenState.CamerasScreen)?.error
 
-    val pullRefreshState = rememberPullRefreshState(refreshing, { onSwipeRefresh?.invoke()})
+    val pullRefreshState = rememberPullRefreshState(refreshing, { onSwipeRefresh?.invoke() })
 
-        Box(Modifier.pullRefresh(pullRefreshState)) {
-            LazyColumn(Modifier.fillMaxSize()) {
-                items(cameras) {
-                    SwipeCameraBox(
-                        camera = it,
-                        onFavoriteClick = { onFavoriteClick?.invoke(it) }
+    Box(Modifier.pullRefresh(pullRefreshState)) {
+        LazyColumn(Modifier.fillMaxSize()) {
+            if (error != null) {
+                item {
+                    Text(
+                        text = "Oops... Something wrong...\n$error",
+                        modifier = Modifier.padding(16.dp),
+                        fontSize = 14.sp,
+                        color = DarkCyan1
                     )
                 }
             }
-            PullRefreshIndicator(refreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
+            items(cameras) {
+                SwipeCameraBox(
+                    camera = it,
+                    onFavoriteClick = { onFavoriteClick?.invoke(it) }
+                )
+            }
+
+
         }
 
+        PullRefreshIndicator(refreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
+    }
 
 
 }
@@ -136,7 +150,7 @@ fun SwipeCameraBox(
                 RoundIconButton(
                     imageVector = if (camera.favorites) Icons.Outlined.Star else Icons.Outlined.StarBorder,
                     color = Gold1,
-                    onClick = {onFavoriteClick?.invoke()}
+                    onClick = { onFavoriteClick?.invoke() }
                 )
             }
         }
